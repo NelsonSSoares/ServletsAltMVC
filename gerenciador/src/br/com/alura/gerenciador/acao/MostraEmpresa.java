@@ -8,7 +8,7 @@ import br.com.alura.gerenciador.servlet.String;
 
 public class MostraEmpresa {
 	
-	public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Mostrando Empresa");
 		
 		String paramId = request.getParameter("id");
@@ -22,7 +22,7 @@ public class MostraEmpresa {
 
 		request.setAttribute("empresa", empresa);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/formAlteraEmpresa.jsp");
-		rd.forward(request, response);
+		return "forward:formAlteraEmpresa.jsp";
+		
 	}
 }
