@@ -1,19 +1,21 @@
 package br.com.alura.gerenciador.acao;
 
-import org.apache.taglibs.standard.extra.spath.ParseException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import br.com.alura.gerenciador.model.Banco;
-import br.com.alura.gerenciador.model.Empresa;
-import br.com.alura.gerenciador.servlet.Date;
-import br.com.alura.gerenciador.servlet.Integer;
-import br.com.alura.gerenciador.servlet.RequestDispatcher;
-import br.com.alura.gerenciador.servlet.ServletException;
-import br.com.alura.gerenciador.servlet.SimpleDateFormat;
-import br.com.alura.gerenciador.servlet.String;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class NovaEmpresa {
-	
+import br.com.alura.gerenciador.modelo.Banco;
+import br.com.alura.gerenciador.modelo.Empresa;
+
+public class NovaEmpresa  implements Acao {
+
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		System.out.println("Cadastrando nova empresa");
 		
 		String nomeEmpresa = request.getParameter("nome");
@@ -37,5 +39,6 @@ public class NovaEmpresa {
 		request.setAttribute("empresa", empresa.getNome());
 		
 		return "redirect:entrada?acao=ListaEmpresas";
+	
 	}
 }
