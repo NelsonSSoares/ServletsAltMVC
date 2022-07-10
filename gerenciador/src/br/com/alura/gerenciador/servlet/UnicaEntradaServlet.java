@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.acao.Acao;
+import br.com.alura.gerenciador.acao.HttpSession;
 
 
 @WebServlet("/entrada")
@@ -17,8 +18,22 @@ public class UnicaEntradaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String paramAcao = request.getParameter("acao");
+		
+		
+		HttpSession session = request.getSession();
+		
+		boolean usuarioNaoEstaLogado = (session.getAttribute("usuarioLogado") == null);
+		boolean ehUmaAcaoProtegida = !(paramAcao.equals("Login") || paramAcao.equals("LoginFrom"));
+		
+		if(ehUmaAcaoProtegida && usuarioNaoEstaLogado) {
+			
+			response.sendRedirect("entrada?acao=LoginForm");
+			return;
+		}
+		
+		
 		
 		String nomeDaClasse = "br.com.alura.gerenciador.acao." + paramAcao;
 		

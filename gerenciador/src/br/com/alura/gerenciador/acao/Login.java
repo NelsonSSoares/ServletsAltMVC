@@ -1,5 +1,8 @@
 package br.com.alura.gerenciador.acao;
 
+import br.com.alura.gerenciador.modelo.Banco;
+import br.com.alura.gerenciador.modelo.Usuario;
+
 public class Login implements Acao {
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
 		
@@ -10,8 +13,13 @@ public class Login implements Acao {
 		Usuario usuario = banco.existeUsuario(login, senha);
 		
 		if(usuario != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("usuarioLogado", usuario);
+			
+			
 			return "redirect:entrada?acao=ListaEmpresas";
 		}else {
+			
 			return "redirect:entrada?acao=LoginForm";
 		}
 		
